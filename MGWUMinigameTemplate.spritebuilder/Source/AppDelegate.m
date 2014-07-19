@@ -55,6 +55,7 @@
     
     [self setupCocos2dWithOptions:cocos2dSetup];
     
+    
     return YES;
 }
 
