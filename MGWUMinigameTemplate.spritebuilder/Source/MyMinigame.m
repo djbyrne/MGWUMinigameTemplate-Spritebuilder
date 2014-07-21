@@ -16,7 +16,8 @@ CCNode *_contentNode;
 CCPhysicsNode *_physicsNode;
 CCNode *_dbTarget;
 CCNode *_dart;
-CCLabelTTF *_timeLabel;
+CCLabelTTF *timelabel;
+CCLabelTTF *scorelabel;
 
 
 int score = 0;
@@ -33,7 +34,7 @@ int rangeX = 530-40;
 int randomX;
 int randomY;
 
-int numSeconds=0;
+int numSeconds=60;
 
 
 CGPoint touchLocation;
@@ -46,6 +47,21 @@ bool targetOn = false;
         self.instructions = @"These are the game instructions :D";
         
         targetOn = false;
+        
+        
+        timelabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",numSeconds] fontName:@"Verdana-Bold" fontSize:18.0f];
+        
+        timelabel.position = CGPointMake(265, 300);
+        
+        
+        [self addChild: timelabel z:14];
+        
+        scorelabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"score: %d",score] fontName:@"Verdana-Bold" fontSize:18.0f];
+        
+        scorelabel.position = CGPointMake(50, 300);
+        
+        
+        [self addChild: scorelabel z:14];
         
         
         [[CCDirector sharedDirector] setAnimationInterval:1.0/30];
@@ -80,7 +96,7 @@ bool targetOn = false;
     // n.b. Lag and other factors may cause it to be called more or less frequently on different devices or sessions
     // delta will tell you how much time has passed since the last cycle (in seconds)
     
-    _timeLabel.string = [NSString stringWithFormat:@"%d", numSeconds];
+    
     
     if(targetOn == false)
     {
@@ -97,7 +113,7 @@ bool targetOn = false;
         
     }
     
-    if(numSeconds>=60)
+    if(numSeconds<=0)
     {
         [self endMinigame];
     }
@@ -111,7 +127,7 @@ bool targetOn = false;
 -(void)endMinigame {
     // Be sure you call this method when you end your minigame!
     // Of course you won't have a random score, but your score *must* be between 1 and 100 inclusive
-    NSLog(@"%d",score);
+    NSLog(@"score: %d",score);
     [self endMinigameWithScore:score];
 }
 
@@ -179,14 +195,17 @@ bool targetOn = false;
     //finally,remove the destriyed seal
     [_dbTarget removeFromParent];
     score++;
+    scorelabel.string = [NSString stringWithFormat:@"score: %d",score];
     
 }
 
 -(void) timerUpdate:(CCTime)delta
 {
-    numSeconds++;
+    numSeconds--;
     NSLog(@"%d",numSeconds);
-    _timeLabel.string = [NSString stringWithFormat:@"%d", numSeconds];
+    timelabel.string = [NSString stringWithFormat:@"%d",numSeconds];
+   
+    
     // update timer here, using numSeconds
 }
 
