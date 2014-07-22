@@ -40,6 +40,11 @@ int numSeconds=60;
 CGPoint touchLocation;
 
 bool targetOn = false;
+bool touch1 = true;
+bool touch2 = false;
+bool check = false;
+
+int touchX,touchY;
 
 -(id)init {
     if ((self = [super init])) {
@@ -47,6 +52,7 @@ bool targetOn = false;
         self.instructions = @"These are the game instructions :D";
         
         targetOn = false;
+        touch1 = true;
         
         
         timelabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",numSeconds] fontName:@"Verdana-Bold" fontSize:18.0f];
@@ -80,6 +86,7 @@ bool targetOn = false;
     //enable touch
     self.userInteractionEnabled = TRUE;
 }
+
 
 -(void)onEnter {
     [super onEnter];
@@ -141,15 +148,42 @@ bool targetOn = false;
 {
     [_dart removeFromParent];
     touchLocation = [touch locationInNode:self];
-    NSLog(@"X location: %f", touchLocation.x);
-    NSLog(@"Y Location: %f",touchLocation.y);
+    
+    if(touch1 == true &&touch2 == false)
+    {
+        //touchX = touchLocation.x;
+        [self xTouched];
+    }
+    if(touch1 == false &&touch2 == true)
+    {
+        //touchY = touchLocation.y;
+        
+        
+        [self yTouched];
+        check = true;
+    }
     
     
 }
 
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    [self createDart];
+    if(touch1 == true &&touch2 == false)
+    {
+        touch1 = false;
+        touch2 = true;
+        
+    }
+    
+    if(touch2 == true &&touch1 == false && check==true)
+    {
+        touch2 = false;
+        touch1 = true;
+        check=false;
+    }
+    
+    
+   
 }
 
 -(void)createTarget
@@ -170,11 +204,12 @@ bool targetOn = false;
 -(void)createDart
 {
     _dart = [CCBReader load:@"DBDart"];
-    _dart.position = CGPointMake(touchLocation.x,20);
+    _dart.position = CGPointMake(touchX,20);
     [self addChild:_dart];
-    //NSLog(@"dart created");
     
-    CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchLocation.x,touchLocation.y)];
+   /* CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchLocation.x,touchLocation.y)];*/
+    
+    CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchX,touchY)];
     [_dart runAction:actionMove];
 }
 
@@ -207,6 +242,21 @@ bool targetOn = false;
    
     
     // update timer here, using numSeconds
+}
+
+-(void)xTouched
+{
+    NSLog(@"x position set");
+    touchX = touchLocation.x;
+    
+}
+
+-(void)yTouched
+{
+    NSLog(@"y position set");
+    touchY = touchLocation.y;
+    [self createDart];
+    
 }
 
 
