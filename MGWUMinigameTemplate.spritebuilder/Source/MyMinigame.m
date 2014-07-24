@@ -16,8 +16,12 @@ CCNode *_contentNode;
 CCPhysicsNode *_physicsNode;
 CCNode *_dbTarget;
 CCNode *_dart;
+CCNode *_pointerX;
+CCNode *_pointerY;
 CCLabelTTF *timelabel;
 CCLabelTTF *scorelabel;
+
+
 
 
 int score = 0;
@@ -40,9 +44,14 @@ int numSeconds=60;
 CGPoint touchLocation;
 
 bool targetOn = false;
+
 bool touch1 = true;
 bool touch2 = false;
-bool check = false;
+bool pointer1 = true;
+bool pointer2 = true;
+
+bool checkTouch = false;
+bool checkPointer = false;
 
 int touchX,touchY;
 
@@ -72,6 +81,9 @@ int touchX,touchY;
         
         [[CCDirector sharedDirector] setAnimationInterval:1.0/30];
         
+        [self pointerXUpdate];
+        
+        
         
     }
     return self;
@@ -93,6 +105,7 @@ int touchX,touchY;
     // Create anything you'd like to draw here
     
     [self schedule:@selector(timerUpdate:) interval:1];
+    
     
     
     
@@ -158,9 +171,9 @@ int touchX,touchY;
     {
         //touchY = touchLocation.y;
         
-        
+        checkTouch = true;
+
         [self yTouched];
-        check = true;
     }
     
     
@@ -175,11 +188,12 @@ int touchX,touchY;
         
     }
     
-    if(touch2 == true &&touch1 == false && check==true)
+    if(touch2 == true &&touch1 == false && checkTouch==true)
     {
         touch2 = false;
         touch1 = true;
-        check=false;
+        checkTouch=false;
+        
     }
     
     
@@ -206,8 +220,6 @@ int touchX,touchY;
     _dart = [CCBReader load:@"DBDart"];
     _dart.position = CGPointMake(touchX,20);
     [self addChild:_dart];
-    
-   /* CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchLocation.x,touchLocation.y)];*/
     
     CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchX,touchY)];
     [_dart runAction:actionMove];
@@ -244,17 +256,60 @@ int touchX,touchY;
     // update timer here, using numSeconds
 }
 
+-(void) pointerXUpdate
+{
+    
+    NSLog(@"pointer x starts");
+    //[_pointerX removeFromParent];
+    _pointerX = [CCBReader load:@"DBPointer"];
+    _pointerX.position = CGPointMake(560,140);
+    [self addChild:_pointerX];
+    
+    CCAction *actionMove = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(0,140)];
+    CCAction *actionMove2 = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(560,140)];
+    CCActionRemove *actionRemove = [CCActionRemove action];
+    
+    CCActionSequence *pointerSequence = [CCActionSequence actionWithArray:@[actionMove,actionMove2]];
+    CCActionRepeatForever *repeat = [CCActionRepeatForever actionWithAction:pointerSequence];
+    
+    [_pointerX runAction:repeat];
+    
+    pointer1 = true;
+    
+}
+
+-(void)pointerYUpdate
+{
+    NSLog(@"pointer y starts");
+    //[_pointerY removeFromParent];
+    _pointerY = [CCBReader load:@"DBPointer2"];
+    _pointerY.position = CGPointMake(265,280);
+    [self addChild:_pointerY];
+    
+    CCAction *actionMove = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(265,0)];
+    CCAction *actionMove2 = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(265,280)];
+    CCActionRemove *actionRemove = [CCActionRemove action];
+    
+    CCActionSequence *pointerSequence = [CCActionSequence actionWithArray:@[actionMove,actionMove2]];
+    CCActionRepeatForever *repeat = [CCActionRepeatForever actionWithAction:pointerSequence];
+    
+    [_pointerY runAction:repeat];
+}
+
 -(void)xTouched
 {
     NSLog(@"x position set");
-    touchX = touchLocation.x;
-    
+    touchX = _pointerX.position.x;
+    [_pointerX removeFromParent];
+    [self pointerYUpdate];
 }
 
 -(void)yTouched
 {
     NSLog(@"y position set");
-    touchY = touchLocation.y;
+    touchY = _pointerY.position.y;
+    [_pointerY removeFromParent];
+    [self pointerXUpdate];
     [self createDart];
     
 }

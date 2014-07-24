@@ -12,6 +12,9 @@
 
 @interface MyMinigame : MGWUMinigame
 
+@property (nonatomic, assign) SEL updateSelector;
+
+
 // DO NOT DELETE!
 @property (nonatomic,retain) MyCharacter *hero;
 // DO NOT DELETE!
