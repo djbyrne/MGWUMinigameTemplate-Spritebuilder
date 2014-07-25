@@ -124,8 +124,8 @@ int touchX,touchY;
     }
     
     
-    if(randomX <= _dart.position.x+30 && randomX >= _dart.position.x-30 &&
-       randomY <= _dart.position.y+30 && randomY >= _dart.position.y-30 )
+    if(randomX <= _dart.position.x+15 && randomX >= _dart.position.x-15 &&
+       randomY <= _dart.position.y+15 && randomY >= _dart.position.y-15 )
     {
         
         [self removeTarget];
@@ -219,7 +219,7 @@ int touchX,touchY;
 {
     _dart = [CCBReader load:@"DBDart"];
     _dart.position = CGPointMake(touchX,20);
-    [self addChild:_dart];
+    [self addChild:_dart z:13];
     
     CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchX,touchY)];
     [_dart runAction:actionMove];
@@ -263,10 +263,10 @@ int touchX,touchY;
     //[_pointerX removeFromParent];
     _pointerX = [CCBReader load:@"DBPointer"];
     _pointerX.position = CGPointMake(560,140);
-    [self addChild:_pointerX];
+    [self addChild:_pointerX z:13];
     
-    CCAction *actionMove = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(0,140)];
-    CCAction *actionMove2 = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(560,140)];
+    CCAction *actionMove = [CCActionMoveTo actionWithDuration:2 position:CGPointMake(0,140)];
+    CCAction *actionMove2 = [CCActionMoveTo actionWithDuration:2 position:CGPointMake(560,140)];
     CCActionRemove *actionRemove = [CCActionRemove action];
     
     CCActionSequence *pointerSequence = [CCActionSequence actionWithArray:@[actionMove,actionMove2]];
@@ -284,10 +284,10 @@ int touchX,touchY;
     //[_pointerY removeFromParent];
     _pointerY = [CCBReader load:@"DBPointer2"];
     _pointerY.position = CGPointMake(265,280);
-    [self addChild:_pointerY];
+    [self addChild:_pointerY z:13];
     
-    CCAction *actionMove = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(265,0)];
-    CCAction *actionMove2 = [CCActionMoveTo actionWithDuration:3 position:CGPointMake(265,280)];
+    CCAction *actionMove = [CCActionMoveTo actionWithDuration:2 position:CGPointMake(265,0)];
+    CCAction *actionMove2 = [CCActionMoveTo actionWithDuration:2 position:CGPointMake(265,280)];
     CCActionRemove *actionRemove = [CCActionRemove action];
     
     CCActionSequence *pointerSequence = [CCActionSequence actionWithArray:@[actionMove,actionMove2]];

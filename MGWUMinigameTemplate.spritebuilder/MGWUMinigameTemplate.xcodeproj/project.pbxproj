@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		26C28C0C1979EBA6004D9251 /* DBTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C28C0B1979EBA6004D9251 /* DBTarget.m */; };
 		65400FAB19743FE200EDBBED /* MGWUMinigameInstructions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65400FAA19743FE200EDBBED /* MGWUMinigameInstructions.m */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
@@ -62,8 +61,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		26C28C0A1979EBA6004D9251 /* DBTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBTarget.h; path = Source/DBTarget.h; sourceTree = "<group>"; };
-		26C28C0B1979EBA6004D9251 /* DBTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBTarget.m; path = Source/DBTarget.m; sourceTree = "<group>"; };
 		65400FA919743FE200EDBBED /* MGWUMinigameInstructions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGWUMinigameInstructions.h; path = Source/MGWUMinigameInstructions.h; sourceTree = "<group>"; };
 		65400FAA19743FE200EDBBED /* MGWUMinigameInstructions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGWUMinigameInstructions.m; path = Source/MGWUMinigameInstructions.m; sourceTree = "<group>"; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
@@ -148,8 +145,6 @@
 				ED5FF05B19495F2F00571E13 /* MyCharacter.m */,
 				ED03BBE51942587100E23822 /* MyMinigame.h */,
 				ED03BBE61942587100E23822 /* MyMinigame.m */,
-				26C28C0A1979EBA6004D9251 /* DBTarget.h */,
-				26C28C0B1979EBA6004D9251 /* DBTarget.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -360,7 +355,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26C28C0C1979EBA6004D9251 /* DBTarget.m in Sources */,
 				ED03BBE31942563A00E23822 /* MGWUMinigame.m in Sources */,
 				65400FAB19743FE200EDBBED /* MGWUMinigameInstructions.m in Sources */,
 				ED5C0B7A19479739000453EC /* MGWUCharacter.m in Sources */,
