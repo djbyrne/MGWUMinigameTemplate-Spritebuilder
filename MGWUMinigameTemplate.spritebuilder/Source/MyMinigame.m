@@ -60,8 +60,20 @@ int touchX,touchY;
         // Initialize any arrays, dictionaries, etc in here
         self.instructions = @"These are the game instructions :D";
         
-        targetOn = false;
-        touch1 = true;
+         numSeconds=60;
+         score = 0;
+        
+         targetOn = false;
+        
+         touch1 = true;
+         touch2 = false;
+         pointer1 = true;
+         pointer2 = true;
+        
+         checkTouch = false;
+         checkPointer = false;
+        
+        
         
         
         timelabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",numSeconds] fontName:@"Verdana-Bold" fontSize:18.0f];
@@ -116,21 +128,19 @@ int touchX,touchY;
     // n.b. Lag and other factors may cause it to be called more or less frequently on different devices or sessions
     // delta will tell you how much time has passed since the last cycle (in seconds)
     
-    
-    
-    if(targetOn == false)
-    {
-        [self createTarget];
-    }
-    
-    
-    if(randomX <= _dart.position.x+15 && randomX >= _dart.position.x-15 &&
-       randomY <= _dart.position.y+15 && randomY >= _dart.position.y-15 )
+    /*if(randomX <= _dart.position.x+25 && randomX >= _dart.position.x-25 &&
+       randomY <= _dart.position.y+25 && randomY >= _dart.position.y-25 )
     {
         
         [self removeTarget];
         targetOn=false;
         
+    }*/
+    
+    
+    if(targetOn == false)
+    {
+        [self createTarget];
     }
     
     if(numSeconds<=0)
@@ -223,6 +233,10 @@ int touchX,touchY;
     
     CCAction *actionMove = [CCActionMoveTo actionWithDuration:0.2 position:CGPointMake(touchX,touchY)];
     [_dart runAction:actionMove];
+    
+    [self performSelector:@selector(checkHit) withObject:self afterDelay:0.2f ];
+    
+    
 }
 
 - (void)removeTarget {
@@ -311,6 +325,19 @@ int touchX,touchY;
     [_pointerY removeFromParent];
     [self pointerXUpdate];
     [self createDart];
+    
+}
+
+-(void)checkHit
+{
+    if(randomX <= touchX+25 && randomX >= touchX-25 &&
+       randomY <= touchY+25 && randomY >= touchY-25 )
+    {
+        
+        [self removeTarget];
+        targetOn=false;
+        
+    }
     
 }
 
