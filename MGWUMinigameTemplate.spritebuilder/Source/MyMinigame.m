@@ -8,7 +8,6 @@
 #import "MyMinigame.h"
 
 
-
 @implementation MyMinigame
 
 
@@ -55,10 +54,16 @@ bool checkPointer = false;
 
 int touchX,touchY;
 
+int screenHeight;
+
 -(id)init {
     if ((self = [super init])) {
         // Initialize any arrays, dictionaries, etc in here
         self.instructions = @"These are the game instructions :D";
+        
+        
+        
+        //ipad is 768
         
          numSeconds=60;
          score = 0;
